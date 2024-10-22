@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Seminario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
+</head>
+<body>
+    <h1>Editar Registro de Seminario</h1>
+    <form action="{{ url_for('editar', id=seminario['id']) }}" method="POST">
+        Nombre: <input type="text" name="nombre" value="{{ seminario['nombre'] }}" required><br>
+        Apellidos: <input type="text" name="apellidos" value="{{ seminario['apellidos'] }}" required><br>
+        Fecha: <input type="date" name="fecha" value="{{ seminario['fecha'] }}" required><br>
+        Turno:
+        <select name="turno" required>
+            <option value="mañana" {% if seminario['turno'] == 'mañana' %}selected{% endif %}>Mañana</option>
+            <option value="tarde" {% if seminario['turno'] == 'tarde' %}selected{% endif %}>Tarde</option>
+            <option value="noche" {% if seminario['turno'] == 'noche' %}selected{% endif %}>Noche</option>
+        </select>
+        <br>
+        Seminario:
+        <select name="seminario" required>
+            {% for sem in seminarios_disponibles %}
+            <option value="{{ sem }}" {% if seminario['seminario'] == sem %}selected{% endif %}>{{ sem }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Guardar Cambios">
+    </form>
+</body>
+</html>

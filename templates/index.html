@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Seminarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
+</head>
+<body>
+    <h1>Lista de Seminarios Registrados</h1>
+    <a href="{{ url_for('nuevo') }}">Nuevo Registro</a>
+    <br><br>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha</th>
+            <th>Turno</th>
+            <th>Seminario</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+        {% for seminario in seminarios %}
+        <tr>
+            <td>{{ seminario.id }}</td>
+            <td>{{ seminario.nombre }}</td>
+            <td>{{ seminario.apellidos }}</td>
+            <td>{{ seminario.fecha }}</td>
+            <td>{{ seminario.turno }}</td>
+            <td>{{ seminario.seminario }}</td>
+            <td><a href="{{ url_for('editar', id=seminario.id) }}">Editar</a></td>
+            <td>
+                <form action="{{ url_for('eliminar', id=seminario.id) }}" method="POST">
+                    <input type="submit" value="Eliminar">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
